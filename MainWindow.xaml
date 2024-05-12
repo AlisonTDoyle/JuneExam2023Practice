@@ -1,0 +1,64 @@
+﻿<Window x:Class="JuneExam2023.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JuneExam2023"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <DataTemplate x:Key="MovieListItem">
+            <StackPanel Orientation="Horizontal" Margin="0,8">
+                <Image Source="{Binding Path=ImageName}" Height="72"/>
+                <StackPanel Margin="16,0">
+                    <TextBlock FontSize="16" Text="{Binding Path=Title}" Margin="0,0,0,16"/>
+                    <TextBlock FontSize="10" TextWrapping="Wrap" Text="{Binding Path=Cast}"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid Margin="32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!--Grid children-->
+        <!--List of movies-->
+        <Label Content="Movie Listings"/>
+        <ListBox Grid.Row="1" x:Name="lbxMovies" ItemTemplate="{StaticResource MovieListItem}" SelectionChanged="lbxMovies_SelectionChanged"/>
+
+        <!--Movie description-->
+        <Label Content="Movie Synopsis" Margin="16,0" Grid.Column="1"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" Margin="16,0" TextWrapping="Wrap" x:Name="tblkMovieSynopsis"/>
+        
+        <!--Quick booking form-->
+        <StackPanel Grid.Column="0" Grid.Row="2">
+            <Label Content="Quick Book"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="3">
+                <TextBlock Text="Select a movie from the list above, choose date and tickets required" Width="240" TextWrapping="Wrap"/>
+                <DatePicker Height="24" x:Name="dpBookingDate" SelectedDateChanged="dpBookingDate_SelectedDateChanged"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+            <StackPanel Grid.Column="1" Margin="8,0">
+                <Label>Available Seats</Label>
+                <TextBlock x:Name="tblkAvailableSeats"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="8,0">
+                <Label>Required Seats</Label>
+                <TextBox x:Name="tbxRequiredSeats"/>
+            </StackPanel>
+            <Button Content="Book Seats" Margin="8,0" x:Name="btnBookSeats" Height="24" Click="btnBookSeats_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
